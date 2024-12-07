@@ -1,0 +1,15 @@
+#standard
+.git
+node_modules
+
+#secret related ignores
+env*
+
+#yarn related ignores
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

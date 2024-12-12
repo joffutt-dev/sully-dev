@@ -1,3 +1,11 @@
+import React from "react";
+
+import Sully from "./images/guiltyface.jpg";
+
 export function App() {
-  return <></>;
+  return (
+    <>
+      <img src={Sully} alt="Sully Hooman" />
+    </>
+  );
 }

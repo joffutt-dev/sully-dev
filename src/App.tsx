@@ -1,5 +1,3 @@
-import React from "react";
-
 import Sully from "./images/guiltyface.jpg";
 
 export function App() {

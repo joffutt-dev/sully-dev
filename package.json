@@ -2,7 +2,8 @@
   "name": "offutt-cv",
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router": "^7.0.2"
   },
   "scripts": {
     "dev": "vite",
@@ -27,7 +28,10 @@
   },
   "packageManager": "yarn@4.5.3",
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": ["prettier --write","eslint --fix"],
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
     "*.{mjs,json}": "prettier --write"
   }
 }

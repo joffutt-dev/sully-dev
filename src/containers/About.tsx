@@ -1,3 +1,8 @@
+import Sully from "../images/guiltyface.jpg";
 export function About() {
-  return <></>;
+  return (
+    <>
+      <img src={Sully} alt="Sully Hooman" />
+    </>
+  );
 }

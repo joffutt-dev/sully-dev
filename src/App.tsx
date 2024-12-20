@@ -1,9 +1,11 @@
-import Sully from "./images/guiltyface.jpg";
+import { Header } from "./components/Header";
+import { SullyRouter } from "./containers/SullyRouter";
 
 export function App() {
   return (
     <>
-      <img src={Sully} alt="Sully Hooman" />
+      <Header />
+      <SullyRouter />
     </>
   );
 }

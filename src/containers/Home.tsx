@@ -1,3 +1,8 @@
 export function Home() {
-  return <></>;
+  return (
+    <div>
+      This is the home page
+      <div>Carousel</div>
+    </div>
+  );
 }

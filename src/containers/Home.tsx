@@ -6,6 +6,7 @@ export function Home() {
           Test Dark BG
         </h3>
         <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">here</p>
+        <button className="btn btn-primary">Button</button>
       </div>
     </div>
   );

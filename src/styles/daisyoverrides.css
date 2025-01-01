@@ -1,0 +1,6 @@
+@layer components {
+  .btn {
+    @apply min-h-8;
+    @apply h-8;
+  }
+}

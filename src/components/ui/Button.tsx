@@ -6,9 +6,9 @@ interface ButtonProps
   extraClassNames?: string;
 }
 export function Button(props: ButtonProps) {
-  const { children, extraClassNames = "" } = props;
+  const { children, extraClassNames = "", ...remainingProps } = props;
   return (
-    <button className={`btn ${extraClassNames}`} {...props}>
+    <button className={`btn ${extraClassNames}`} {...remainingProps}>
       {children}
     </button>
   );

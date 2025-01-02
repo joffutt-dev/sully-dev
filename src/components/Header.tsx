@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { Button } from "./ui/Button";
+import { ThemeController } from "./ui/ThemeControllers";
 
 export function Header() {
   const navigate = useNavigate();
@@ -10,7 +11,10 @@ export function Header() {
         <Button onClick={() => navigate("/sully")} extraClassNames="mr-1">
           See Sully
         </Button>
-        <Button onClick={() => navigate("/about")}>About</Button>
+        <Button onClick={() => navigate("/about")} extraClassNames="mr-1">
+          About
+        </Button>
+        <ThemeController />
       </div>
     </div>
   );

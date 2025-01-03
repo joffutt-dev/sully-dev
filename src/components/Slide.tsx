@@ -1,10 +1,11 @@
-export function Slide() {
+interface SlideProps {
+  imgLocation: string;
+}
+
+export function Slide({ imgLocation }: SlideProps) {
   return (
-    <div className="carousel-item">
-      <img
-        src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
-        alt="Burger"
-      />
+    <div className="carousel-item custom-h">
+      <img src={imgLocation} alt="Slide" />
     </div>
   );
 }

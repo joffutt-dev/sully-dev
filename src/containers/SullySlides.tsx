@@ -1,10 +1,14 @@
-import Stretching from "../images/stretching.webp";
-import Cone from "../images/sullycone.webp";
-import Ball from "../images/ball.webp";
-import EyeContact from "../images/eyecontact.webp";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/Button";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+  PauseIcon,
+  PlayIcon,
+} from "@heroicons/react/16/solid";
+import { Slide } from "../components/Slide";
 export function SullySlides() {
+  const [showButton, setShowButton] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [play, setPlay] = useState(true);
 
@@ -38,7 +42,7 @@ export function SullySlides() {
     if (play) {
       const interval = setInterval(() => {
         scrollRight();
-      }, 1000);
+      }, 2000);
       //Clearing the interval
       return () => clearInterval(interval);
     }
@@ -47,69 +51,35 @@ export function SullySlides() {
   return (
     <div className="relative">
       <Button extraClassNames="top-1/2 left-0 absolute" onClick={scrollLeft}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5 8.25 12l7.5-7.5"
-          />
-        </svg>
+        <ChevronDoubleLeftIcon className="size-6" />
       </Button>
       <Button extraClassNames="top-1/2 right-0 absolute" onClick={scrollRight}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
+        <ChevronDoubleRightIcon className="size-6" />
       </Button>
-      <Button
-        extraClassNames="bottom-0 right-1/2 absolute"
-        onClick={() => setPlay(!play)}
+      {showButton && (
+        <Button
+          onAnimationEnd={() => setShowButton(false)}
+          extraClassNames="bottom-1/2 right-1/2 absolute"
+          onClick={() => setPlay(!play)}
+        >
+          {!play ? <PauseIcon className="size-6" /> : <PlayIcon className="size-6" />}
+        </Button>
+      )}
+      <div
+        ref={ref}
+        className="carousel cursor-pointer anim"
+        onClick={() => {
+          setPlay(!play);
+          setShowButton(true);
+        }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 7.5V18M15 7.5V18M3 16.811V8.69c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811Z"
-          />
-        </svg>
-      </Button>
-      <div ref={ref} className="carousel">
-        <div className="carousel-item custom-h">
-          <img src={Stretching} alt="sully cute" />
-        </div>
-        <div className="carousel-item custom-h">
-          <img src={Cone} alt="sully cute" />
-        </div>
-        <div className="carousel-item custom-h">
-          <img src={Ball} alt="sully cute" />
-        </div>
-        <div className="carousel-item custom-h">
-          <img src={EyeContact} alt="sully cute" />
-        </div>
+        <Slide imgLocation="/src/images/stretching.webp" />
+        <Slide imgLocation="/src/images/eyecontact.webp" />
+        <Slide imgLocation="/src/images/ball.webp" />
+        <Slide imgLocation="/src/images/sullycone.webp" />
+        <Slide imgLocation="/src/images/eyecontact.webp" />
+        <Slide imgLocation="/src/images/stretching.webp" />
+        <Slide imgLocation="/src/images/ball.webp" />
       </div>
     </div>
   );

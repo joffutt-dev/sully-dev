@@ -1,3 +1,7 @@
 .custom-h {
   height: calc(100vh - 60px);
 }
+
+.custom-max-h {
+  max-height: calc(100vh - 60px);
+}

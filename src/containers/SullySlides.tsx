@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../components/ui/Button";
 import {
   ChevronDoubleLeftIcon,
@@ -10,7 +10,10 @@ import { Slide } from "../components/Slide";
 export function SullySlides() {
   const [showButton, setShowButton] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<number | null>(null);
   const [play, setPlay] = useState(true);
+
+  const widthToScroll = useMemo(() => (ref.current?.clientWidth ?? 1500) / 3, [ref]);
 
   const scrollLeft = useCallback(
     () =>
@@ -18,10 +21,10 @@ export function SullySlides() {
         left:
           ref.current?.scrollLeft === 0
             ? ref.current.scrollWidth
-            : ref.current?.scrollLeft - 500, // Adjust the value to control the scroll distance
+            : ref.current?.scrollLeft - widthToScroll, // Adjust the value to control the scroll distance
         behavior: "smooth", // For smooth scrolling
       }),
-    [ref],
+    [ref, widthToScroll],
   );
 
   const scrollRight = useCallback(
@@ -31,29 +34,57 @@ export function SullySlides() {
           ref.current.clientWidth + ref.current?.scrollLeft >=
           ref.current?.scrollWidth - 10
             ? 0
-            : ref.current?.scrollLeft + 500,
+            : ref.current?.scrollLeft + widthToScroll,
         behavior: "smooth",
       }),
-    [ref],
+    [ref, widthToScroll],
   );
 
+  const doInterval = useCallback(() => {
+    if (intervalRef.current) return; // Already running
+
+    intervalRef.current = setInterval(() => {
+      scrollRight();
+    }, 3000);
+  }, [intervalRef]);
+
+  const resetInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = null;
+    doInterval();
+  };
+
   useEffect(() => {
-    //Implementing the setInterval method
     if (play) {
-      const interval = setInterval(() => {
-        scrollRight();
-      }, 2000);
-      //Clearing the interval
-      return () => clearInterval(interval);
+      doInterval();
+      return () => clearInterval(intervalRef);
     }
   }, [ref, play]);
 
   return (
     <div className="relative">
-      <Button extraClassNames="top-1/2 left-0 absolute" onClick={scrollLeft}>
+      <Button
+        className="w-full"
+        onClick={() => console.log(widthToScroll, ref.current?.clientWidth)}
+      >
+        Test
+      </Button>
+      <Button
+        extraClassNames="top-0 left-0 absolute h-full w-1/5 opacity-0 hover:opacity-75"
+        onClick={() => {
+          scrollLeft();
+          resetInterval();
+        }}
+      >
         <ChevronDoubleLeftIcon className="size-6" />
       </Button>
-      <Button extraClassNames="top-1/2 right-0 absolute" onClick={scrollRight}>
+      <Button
+        extraClassNames="top-0 right-0 absolute h-full w-1/5 opacity-0 hover:opacity-75"
+        onClick={() => {
+          scrollRight();
+          resetInterval();
+        }}
+      >
         <ChevronDoubleRightIcon className="size-6" />
       </Button>
       {showButton && (

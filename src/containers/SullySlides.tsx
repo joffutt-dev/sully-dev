@@ -57,18 +57,12 @@ export function SullySlides() {
   useEffect(() => {
     if (play) {
       doInterval();
-      return () => clearInterval(intervalRef);
+      return () => clearInterval(intervalRef.current || undefined);
     }
   }, [ref, play]);
 
   return (
     <div className="relative">
-      <Button
-        className="w-full"
-        onClick={() => console.log(widthToScroll, ref.current?.clientWidth)}
-      >
-        Test
-      </Button>
       <Button
         extraClassNames="top-0 left-0 absolute h-full w-1/5 opacity-0 hover:opacity-75"
         onClick={() => {
@@ -89,19 +83,26 @@ export function SullySlides() {
       </Button>
       {showButton && (
         <Button
-          onAnimationEnd={() => setShowButton(false)}
-          extraClassNames="bottom-1/2 right-1/2 absolute"
-          onClick={() => setPlay(!play)}
+          extraClassNames="bottom-1/2 right-1/2 absolute bg-gray-800 hover:bg-gray-900 h-16 rounded-full shadow-2xl"
+          // onClick={() => setPlay(!play)}
         >
-          {!play ? <PauseIcon className="size-6" /> : <PlayIcon className="size-6" />}
+          {!play ? (
+            <PauseIcon className="size-8 fill-white" />
+          ) : (
+            <PlayIcon className="size-8 fill-white" />
+          )}
         </Button>
       )}
       <div
         ref={ref}
-        className="carousel cursor-pointer anim"
+        className="carousel cursor-pointer border-black border-solid border-2"
         onClick={() => {
+          intervalRef.current = null;
           setPlay(!play);
           setShowButton(true);
+          setTimeout(() => {
+            setShowButton(false);
+          }, 500);
         }}
       >
         <Slide imgLocation="/src/images/stretching.webp" />

@@ -49,37 +49,39 @@ export function SullySlides() {
   }, [intervalRef]);
 
   const resetInterval = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = null;
+    stopInterval();
     doInterval();
   };
 
+  const stopInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = null;
+  };
+
   useEffect(() => {
-    if (play) {
-      doInterval();
-      return () => clearInterval(intervalRef.current || undefined);
-    }
-  }, [ref, play]);
+    resetInterval();
+    return () => clearInterval(intervalRef.current || undefined);
+  }, [ref]);
 
   return (
     <div className="relative">
       <Button
-        extraClassNames="top-0 left-0 absolute h-full w-1/5 opacity-0 hover:opacity-75"
+        extraClassNames="top-0 left-0 absolute h-full w-1/5 opacity-0 hover:opacity-50 hover:bg-gray-700"
         onClick={() => {
           scrollLeft();
           resetInterval();
         }}
       >
-        <ChevronDoubleLeftIcon className="size-6" />
+        <ChevronDoubleLeftIcon className="size-20 fill-white" />
       </Button>
       <Button
-        extraClassNames="top-0 right-0 absolute h-full w-1/5 opacity-0 hover:opacity-75"
+        extraClassNames="top-0 right-0 absolute h-full w-1/5 opacity-0 hover:opacity-50 hover:bg-gray-700"
         onClick={() => {
           scrollRight();
           resetInterval();
         }}
       >
-        <ChevronDoubleRightIcon className="size-6" />
+        <ChevronDoubleRightIcon className="size-20 fill-white" />
       </Button>
       {showButton && (
         <Button
@@ -97,12 +99,16 @@ export function SullySlides() {
         ref={ref}
         className="carousel cursor-pointer border-black border-solid border-2"
         onClick={() => {
-          intervalRef.current = null;
+          if (play) {
+            stopInterval();
+          } else {
+            resetInterval();
+          }
           setPlay(!play);
           setShowButton(true);
           setTimeout(() => {
             setShowButton(false);
-          }, 500);
+          }, 400);
         }}
       >
         <Slide imgLocation="/src/images/stretching.webp" />

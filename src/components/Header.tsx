@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router";
 import { Button } from "./ui/Button";
 import { ThemeController } from "./ui/ThemeControllers";
+import { UserCircleIcon } from "@heroicons/react/16/solid";
+import { Popover } from "./ui/Popover";
+import { Divider } from "./ui/Divider";
 
 export function Header() {
   const navigate = useNavigate();
@@ -14,6 +17,22 @@ export function Header() {
         <Button onClick={() => navigate("/about")} extraClassNames="mr-1">
           About
         </Button>
+        <Popover
+          trigger={<UserCircleIcon className="size-8" />}
+          items={[
+            <Button
+              key="profile"
+              onClick={() => navigate("/profile")}
+              extraClassNames="btn-ghost"
+            >
+              Profile
+            </Button>,
+            <Divider key="divider" extraClassNames="mt-1 mb-1" />,
+            <Button key="logout" extraClassNames="btn-ghost">
+              Logout
+            </Button>,
+          ]}
+        />
         <ThemeController />
       </div>
     </div>

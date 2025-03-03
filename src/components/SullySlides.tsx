@@ -6,7 +6,9 @@ import {
   PauseIcon,
   PlayIcon,
 } from "@heroicons/react/16/solid";
-import { Slide } from "./Slide";
+import { useQuery } from "@tanstack/react-query";
+import { getListOfImages } from "../helpers/ImageFetching";
+import { SlideFromServer } from "./SlideFromServer";
 export function SullySlides() {
   const [showButton, setShowButton] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -63,6 +65,13 @@ export function SullySlides() {
     return () => clearInterval(intervalRef.current || undefined);
   }, [ref]);
 
+  const { data } = useQuery({
+    queryKey: ["imageList"],
+    queryFn: getListOfImages,
+  });
+
+  console.log(data);
+
   return (
     <div className="relative ml-2 mr-2">
       <Button
@@ -111,13 +120,17 @@ export function SullySlides() {
           }, 400);
         }}
       >
-        <Slide imgLocation="/src/images/stretching.webp" />
+        {/* <Slide imgLocation="/src/images/stretching.webp" />
         <Slide imgLocation="/src/images/eyecontact.webp" />
         <Slide imgLocation="/src/images/ball.webp" />
         <Slide imgLocation="/src/images/sullycone.webp" />
         <Slide imgLocation="/src/images/eyecontact.webp" />
         <Slide imgLocation="/src/images/stretching.webp" />
-        <Slide imgLocation="/src/images/ball.webp" />
+        <Slide imgLocation="/src/images/ball.webp" /> */}
+        {data &&
+          data.map((imageData) => (
+            <SlideFromServer key={imageData.id} imgId={imageData.id} />
+          ))}
       </div>
     </div>
   );

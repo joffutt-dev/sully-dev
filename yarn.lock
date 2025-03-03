@@ -759,6 +759,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.66.11":
+  version: 5.66.11
+  resolution: "@tanstack/query-core@npm:5.66.11"
+  checksum: 10c0/0d8b6356fc282b11e731be9fecdcd0f9571b202bcacd079bf30274a3b951ff45c136b9892a1b93ae426782f7cb8d82f06028bbae0b1eb46a578318ab07ac081e
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.66.11":
+  version: 5.66.11
+  resolution: "@tanstack/react-query@npm:5.66.11"
+  dependencies:
+    "@tanstack/query-core": "npm:5.66.11"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/8055abb73116eb93eef373f4766972088c86cfcb5355b4c724cdcbd499d0565d819e8e9e95288836948d87ccdc53e74f67f26da83cf454e7056939a4e35b4953
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.20.5":
   version: 7.20.5
   resolution: "@types/babel__core@npm:7.20.5"
@@ -3486,6 +3504,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.16.0"
     "@heroicons/react": "npm:^2.2.0"
+    "@tanstack/react-query": "npm:^5.66.11"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     "@vitejs/plugin-react": "npm:^4.3.4"

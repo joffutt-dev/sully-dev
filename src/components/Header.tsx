@@ -14,6 +14,9 @@ export function Header() {
         <Button onClick={() => navigate("/sully")} extraClassNames="mr-1">
           See Sully
         </Button>
+        <Button onClick={() => navigate("/sully-videos")} extraClassNames="mr-1">
+          Videos
+        </Button>
         <Button onClick={() => navigate("/about")} extraClassNames="mr-1">
           About
         </Button>
